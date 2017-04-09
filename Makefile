@@ -28,7 +28,7 @@ distclean:
 run:
 	visualboyadvance-m $(BUILD)/main.gba
 
-.PHONY: all clean run
+.PHONY: all clean distclean run
 
 # Release rules
 $(BUILD)/main.gba: main.elf | $(BUILD)
