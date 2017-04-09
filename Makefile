@@ -11,7 +11,10 @@ vpath %.o $(OBJ)
 vpath %.elf $(BIN)
 
 CC = arm-none-eabi-gcc
-CFLAGS := -O2 -std=c11 -mthumb-interwork -mthumb -Wall -Wextra -Wcast-align -Wcast-qual -Wdisabled-optimization -Wformat=2 -Winit-self -Wlogical-op -Wmissing-declarations -Wmissing-include-dirs -Wredundant-decls -Wshadow -Wsign-conversion -Wstrict-overflow=5 -Wswitch-default -Wundef -Wno-unused
+CFLAGS := -O2 -std=c11 -mthumb-interwork -mthumb -Wall -Wextra -Wcast-align \
+-Wcast-qual -Wdisabled-optimization -Wformat=2 -Winit-self -Wlogical-op \
+-Wmissing-declarations -Wmissing-include-dirs -Wredundant-decls -Wshadow \
+-Wsign-conversion -Wstrict-overflow=5 -Wswitch-default -Wundef -Wno-unused
 
 # Phony rules
 all: $(BUILD)/main.gba
