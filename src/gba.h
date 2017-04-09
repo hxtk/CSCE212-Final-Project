@@ -1,15 +1,17 @@
 // Copyright: Peter Sanders. All rights reserved.
 // Date: 2017-04-08
 
+#include <stdlib.h>  // uint8_t, uint16_t, etc.
+
 #ifndef GBA_H_
 #define GBA_H_
 
+/*******************************************************************************
+ * Macro constants
+ */
+
 #define true 1
 #define false 0
-
-typedef unsigned int uint32_t;
-typedef unsigned short uint16_t;
-typedef unsigned char uint8_t;
 
 #define GBA_CPU_CLOCK 16780000
 
@@ -30,6 +32,11 @@ typedef unsigned char uint8_t;
 #define GBA_BUTTON_DOWN   0x080
 #define GBA_BUTTON_R      0x100
 #define GBA_BUTTON_L      0x200
+
+
+/*******************************************************************************
+ * Variable Constants
+ */
 
 /*
 // These are the raw pointers to all of the important memory locations

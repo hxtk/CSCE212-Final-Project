@@ -1,22 +1,15 @@
 // Copyright: Peter Sanders. All rights reserved.
 // Date: 2017-04-08
 
+#include "graphics.h"
 #include "gba.h"
 
-void draw_rect(int x, int y, int width, int height, int color) {
-  for (int i = 0; i < height; ++i) {
-    for (int j = 0; j < width; ++j) {
-      gba_set_pixel((x + j), (y + i), color);
-    }
-  }
-}
+void input(g_point* point) {
+  if (!(*gba_buttons & GBA_BUTTON_UP) && (point->y + 16 > 0))
+    point->y -= 1;
 
-void input(float* y) {
-  if (!(*gba_buttons & GBA_BUTTON_UP) && (*y + 16 > 0))
-    *y -= 1;
-
-  if (!(*gba_buttons & GBA_BUTTON_DOWN) && (*y + 16 < GBA_MAX_Y))
-    *y += 1;
+  if (!(*gba_buttons & GBA_BUTTON_DOWN) && (point->y + 16 < GBA_MAX_Y))
+    point->y += 1;
 }
 
 int main() {
@@ -28,6 +21,20 @@ int main() {
   int red = gba_add_color(0x001f);
   int blue = gba_add_color(0x7c00);
 
+  g_aligned_rect player_range;
+  player_range.start.x = 15;
+  player_range.start.y = 0;
+  player_range.width = 5;
+  player_range.height = GBA_MAX_Y;
+  player_range.color = black;
+
+  g_aligned_rect player;
+  player.start.x = 15;
+  player.start.y = GBA_MAX_Y / 2 - 16;
+  player.width = 5;
+  player.height = 32;
+  player.color = blue;
+
   gba_fill_buffer(black);
   gba_refresh();
   gba_fill_buffer(black);
@@ -36,11 +43,11 @@ int main() {
   float y = GBA_MAX_Y / 2 - 16;
   while(1) {
     // Clear old render
-    draw_rect(15, 0, 5, GBA_MAX_Y, black);
+    g_render_rectangle(player_range);
 
-    input(&y);
+    input(&player.start);
 
-    draw_rect(15, y, 5, 32, blue);
+    g_render_rectangle(player);
 
     gba_sync();
     gba_refresh();
