@@ -95,12 +95,12 @@ void gba_sync();
 void gba_refresh();
 
 // Fill the entire working buffer with a single color
-void gba_fill_buffer(int);
+void gba_fill_buffer(int color_id);
 
 // Set the color of the pixel at (x, y) to the given color id
-int gba_set_pixel(int, int, int);
+int gba_set_pixel(int x, int y, int color_id);
 
 // Add the provided color to the next index in the palette
-int gba_add_color(uint16_t);
+int gba_add_color(uint16_t color);
 
 #endif  // GBA_H_
