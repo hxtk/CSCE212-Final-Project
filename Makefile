@@ -30,22 +30,17 @@ $(BIN)/main.elf: main.o gba.o graphics.o player.o ball.o | $(BIN)
 
 # Object rules
 $(OBJECTS): | $(OBJ)
+	$(CC) $(CFLAGS) -o $@ -c $<
 
 $(OBJ)/main.o: main.c
-	$(CC) $(CFLAGS) -o $@ -c $<
 
 $(OBJ)/gba.o: gba.c gba.h
-	$(CC) $(CFLAGS) -o $@ -c $<
 
 $(OBJ)/graphics.o: graphics.c graphics.h gba.h
-	$(CC) $(CFLAGS) -o $@ -c $<
 
 $(OBJ)/player.o: player.c player.h graphics.h
-	$(CC) $(CFLAGS) -o $@ -c $<
 
 $(OBJ)/ball.o: ball.c ball.h graphics.h
-	$(CC) $(CFLAGS) -o $@ -c $<
-
 
 # Build environment rules
 
