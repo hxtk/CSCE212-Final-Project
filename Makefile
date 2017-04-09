@@ -20,9 +20,15 @@ CFLAGS := -O2 -std=c11 -mthumb-interwork -mthumb -Wall -Wextra -Wcast-align \
 all: $(BUILD)/main.gba
 
 clean:
-	rm -r $(BIN) $(OBJ) $(BUILD)
+	rm -rf $(BIN) $(OBJ) $(BUILD)
 
-.PHONY: all clean
+distclean:
+	rm -rf $(BIN) $(OBJ)
+
+run:
+	visualboyadvance-m $(BUILD)/main.gba
+
+.PHONY: all clean run
 
 # Release rules
 $(BUILD)/main.gba: main.elf | $(BUILD)
@@ -30,7 +36,7 @@ $(BUILD)/main.gba: main.elf | $(BUILD)
 	gbafix $@
 
 # Binary rules
-$(BIN)/main.elf: main.o gba.o graphics.o player.o ball.o | $(BIN)
+$(BIN)/main.elf: $(OBJECTS) | $(BIN)
 	$(CC) $(CFLAGS) $^ -o $@ -specs=gba.specs
 
 # Object rules
