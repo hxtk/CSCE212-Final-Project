@@ -7,7 +7,7 @@
 
 g_point velocity = {1, 1};
 
-void init_ball(int color, int background) {
+void ball_init(int color, int background) {
   ball.start.x = GBA_MAX_X / 2;
   ball.start.y = GBA_MAX_Y / 2;
   ball.width = 5;
@@ -23,11 +23,11 @@ void init_ball(int color, int background) {
   ball_range.color = background;
 }
 
-void clear_ball() {
+void ball_clear() {
   g_render_rectangle(ball_range);
 }
 
-void update_ball() {
+void ball_update() {
   ball.start.x += velocity.x;
   ball.start.y += velocity.y;
 
@@ -42,6 +42,6 @@ void update_ball() {
  
 }
 
-void render_ball() {
+void ball_render() {
   g_render_rectangle(ball);
 }

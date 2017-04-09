@@ -11,12 +11,12 @@ static g_aligned_rect ball_range;
 
 extern g_point velocity;
 
-void init_ball(int color, int background);
+void ball_init(int color, int background);
 
-void clear_ball();
+void ball_clear();
 
-void update_ball();
+void ball_update();
 
-void render_ball();
+void ball_render();
 
 #endif  // BALL_H_
