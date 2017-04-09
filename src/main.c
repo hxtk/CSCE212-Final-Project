@@ -1,6 +1,7 @@
 // Copyright: Peter Sanders. All rights reserved.
 // Date: 2017-04-08
 
+#include "ball.h"
 #include "player.h"
 #include "gba.h"
 
@@ -16,6 +17,7 @@ int main() {
 
   // Initialize objects
   player_init(blue, black);
+  ball_init(white, black);
 
   // Initialize screen
   gba_fill_buffer(black);
@@ -27,11 +29,14 @@ int main() {
   while(1) {
     // Clear old frame
     player_clear();
+    ball_clear();
 
     // Update objects
     player_input();
+    ball_update();
 
     // Render new frame
+    ball_render();
     player_render();    
 
     // Display rendered frame
