@@ -1,3 +1,5 @@
+// Copyright: Peter Sanders
+// Date: 2017-04-09
 
 #include "graphics.h"
 #include "gba.h"
