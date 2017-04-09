@@ -25,7 +25,6 @@ int main() {
   gba_fill_buffer(black);
 
   // Main game loop; runs infinitely.
-  float y = GBA_MAX_Y / 2 - 16;
   while(1) {
     // Clear old frame
     player_clear();
