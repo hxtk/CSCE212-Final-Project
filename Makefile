@@ -22,6 +22,8 @@ all: $(BUILD)/main.gba
 clean:
 	rm -r $(BIN) $(OBJ) $(BUILD)
 
+.PHONY: all clean
+
 # Release rules
 $(BUILD)/main.gba: main.elf | $(BUILD)
 	arm-none-eabi-objcopy -v -O binary $^ $@
@@ -46,7 +48,6 @@ $(OBJ)/player.o: player.c player.h graphics.h
 $(OBJ)/ball.o: ball.c ball.h graphics.h
 
 # Build environment rules
-
 $(BUILD):
 	mkdir -p $(BUILD)
 
@@ -56,5 +57,3 @@ $(BIN):
 $(OBJ):
 	mkdir -p $(OBJ)
 
-
-.PHONY: all clean
