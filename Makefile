@@ -16,7 +16,7 @@ $(BUILD)/main.gba: $(BIN)/main.elf
 	arm-none-eabi-objcopy -v -O binary $^ $@
 	gbafix $@
 
-$(BIN)/main.elf: $(OBJ)/main.o $(OBJ)/gba.o $(OBJ)/graphics.o
+$(BIN)/main.elf: $(OBJ)/main.o $(OBJ)/gba.o $(OBJ)/graphics.o $(OBJ)/player.o
 	mkdir -p $(BIN)
 	$(CC) $(CFLAGS) $^ -o $@ -specs=gba.specs
 
@@ -31,5 +31,9 @@ $(OBJ)/gba.o: $(SRC)/gba.c $(SRC)/gba.h
 $(OBJ)/graphics.o: $(SRC)/graphics.c $(SRC)/graphics.h
 	mkdir -p $(OBJ)
 	$(CC) $(CFLAGS) -o $@ -c $(SRC)/graphics.c
+
+$(OBJ)/player.o: $(SRC)/player.c $(SRC)/player.h
+	mkdir -p $(OBJ)
+	$(CC) $(CFLAGS) -o $@ -c $(SRC)/player.c
 
 .PHONY: all clean
