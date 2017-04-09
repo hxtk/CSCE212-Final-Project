@@ -2,3 +2,6 @@
 obj/
 build/
 bin/
+compile.sh
+devkitARMupdate.pl
+gba.specs
