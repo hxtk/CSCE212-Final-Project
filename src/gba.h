@@ -38,18 +38,6 @@
  * Variable Constants
  */
 
-/*
-// These are the raw pointers to all of the important memory locations
-// They are available for reference, but we will be preferring "helper"
-// pointers that are defined below
-uint8_t* const gba_system_rom    = (uint8_t*) 0x00000000;  // -> 0x00003fff
-uint8_t* const gba_system_ram    = (uint8_t*) 0x02000000;  // -> 0x02020000
-uint8_t* const gba_cpu_cache     = (uint8_t*) 0x03000000;  // -> 0x03007fff
-uint8_t* const gba_io_registers  = (uint8_t*) 0x04000000;  // -> 0x040003ff
-
-uint8_t* const gba_oam_ram       = (uint8_t*) 0x07000000;  // -> 0x070003ff
-*/
-
 // NOTE: Commented out 2017-04-08 because it will not be used in this project
 //
 // This is the 240x160 video memory buffer. When using MODE4 and MODE5, it
