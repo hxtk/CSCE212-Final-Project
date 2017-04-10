@@ -6,6 +6,9 @@
 #include "graphics.h"
 #include "gba.h"
 
+static g_aligned_rect player_range;
+static g_aligned_rect player;
+
 void player_init(int color, int background) {
   player_range.start.x = 15;
   player_range.start.y = 0;

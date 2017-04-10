@@ -7,9 +7,6 @@
 #ifndef PLAYER_H_
 #define PLAYER_H_
 
-static g_aligned_rect player_range;
-static g_aligned_rect player;
-
 // Accepts the color of the player and the color of the background
 // This initializes the variables for the area to be cleared as well as
 // the player object itself. It must be called before any of the other members.

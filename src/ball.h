@@ -7,9 +7,6 @@
 #ifndef BALL_H_
 #define BALL_H_
 
-static g_aligned_rect ball;
-static g_aligned_rect ball_range;
-
 extern g_point velocity;
 
 // Initialize |ball| and |ball_range| to the center of the screen, with

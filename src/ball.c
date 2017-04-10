@@ -6,6 +6,9 @@
 #include "graphics.h"
 #include "gba.h"
 
+static g_aligned_rect ball;
+static g_aligned_rect ball_range;
+
 g_point velocity = {1, 1};
 
 void ball_init(int color, int background) {
