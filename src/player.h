@@ -12,11 +12,10 @@
 // the player object itself. It must be called before any of the other members.
 void player_init(int color, int background);
 
-// Clear the area in which the player may exist. This should be called before
-// any call is made to |player_render()|.
-//
-// TODO: define a render area that consists only of the amount the player
-// could have moved since the last frame.
+// Clear the area where the player was last frame. For greater efficiency, this
+// could check if the player position has changed and only clear those values.
+// As of 2017-04-11, this is not necessary. As long as the main loop is shorter
+// than ~15ms, we do not gain increased performance from increased efficiency.
 void player_clear();
 
 void player_render();
