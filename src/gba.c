@@ -70,10 +70,11 @@ int gba_set_pixel(int x, int y, int color_id) {
 }
 
 int gba_add_color(uint16_t color) {
-  // The index is initialized to -1 so that we can pre-increment. This simplifies
-  // return values.
-  static int i = -1;
+  // This is the index at which the color will be stored. We initialize it to -1
+  // so that we can preincrement it to simplify the code, i.e., the first index
+  // used will be |gba_color_palette[0]|.
+  static int index = -1;
 
-  gba_color_palette[++i] = color;
-  return i;
+  gba_color_palette[++index] = color;
+  return index;
 }

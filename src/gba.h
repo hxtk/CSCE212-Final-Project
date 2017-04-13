@@ -48,8 +48,9 @@
 
 // Because of the limitations described above, this pointer is also a 16-bit
 // matrix pointing to a row size of 1/2 for simplified subscripting:
-// |&gba_color_mat[y][x]| is the address of the |2x|th and |2x+1|th pixel on the
-// |y|th row. Both bytes must still be written simultaneously.
+// |gba_color_mat[y][x]| is the |2x+1|th and |2x|th pixels on the |y|th row.
+// NOTE: the more significant byte contains the second value.
+// Both bytes must still be written simultaneously.
 extern volatile uint16_t (*const gba_color_mat_front)[120];
 extern volatile uint16_t (*const gba_color_mat_back)[120];
 
@@ -76,7 +77,9 @@ extern volatile uint16_t* const gba_buttons;
  * Functions
  */
 
-// Block until the screen is drawn completely
+// Block until the screen is drawn completely. This prevents us from switching
+// buffers until the screen is drawn. Switching buffers while drawing the screen
+// can result in tearing.
 void gba_sync();
 
 // Swap the working buffer with the display buffer
