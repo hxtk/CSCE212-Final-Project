@@ -42,9 +42,9 @@ void gba_fill_buffer(int color_id) {
   }
 }
 
-int gba_set_pixel(int x, int y, int color_id) {
-  if (color_id < 0 || color_id >= 256) return false;
-  if (y >= GBA_MAX_Y || y < 0 || x >= GBA_MAX_X || x < 0) return false;
+void gba_set_pixel(int x, int y, int color_id) {
+  if (color_id < 0 || color_id >= 256) return;
+  if (y >= GBA_MAX_Y || y < 0 || x >= GBA_MAX_X || x < 0) return;
 
   // If this bit is set then the first buffer is the working buffer (because
   // the second buffer is the display buffer). To prevent screen tearing, we
@@ -65,8 +65,10 @@ int gba_set_pixel(int x, int y, int color_id) {
     buffer[y][x/2] &= 0xff00;
     buffer[y][x/2] |= (uint16_t) (color_id);
   }
+}
 
-  return true;
+void gba_set_pixel(float x, float y, int color_id) {
+  gba_set_pixel((int) (x + 0.5), (int) (y + 0.5), color_id);
 }
 
 int gba_add_color(uint16_t color) {
