@@ -20,6 +20,11 @@ typedef struct g_point {
   int y;
 } g_point;
 
+typedef struct g_point_f {
+  float x;
+  float y;
+} g_point_f;
+
 // This describes a rectangle that is aligned with the axes. Due to the absence
 // of diagonal edges, this shape can be rendered much more quickly than
 // arbitrary polygons.
@@ -31,6 +36,14 @@ typedef struct g_aligned_rect {
 
 } g_aligned_rect;
 
+typedef struct g_aligned_rect_f {
+  g_point_f start;
+  float width;
+  float height;
+  int color;
+} g_aligned_rect_f;
+
 void g_render_rectangle(const g_aligned_rect rectangle);
+void g_render_rectangle_f(const g_aligned_rect_f rectangle);
 
 #endif  // GRAPHICS_H_

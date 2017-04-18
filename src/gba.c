@@ -67,10 +67,6 @@ void gba_set_pixel(int x, int y, int color_id) {
   }
 }
 
-void gba_set_pixel(float x, float y, int color_id) {
-  gba_set_pixel((int) (x + 0.5), (int) (y + 0.5), color_id);
-}
-
 int gba_add_color(uint16_t color) {
   // This is the index at which the color will be stored. We initialize it to -1
   // so that we can preincrement it to simplify the code, i.e., the first index
