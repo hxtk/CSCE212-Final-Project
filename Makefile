@@ -51,7 +51,7 @@ $(OBJ)/graphics.o: graphics.c graphics.h gba.h
 
 $(OBJ)/player.o: player.c player.h graphics.h
 
-$(OBJ)/ball.o: ball.c ball.h graphics.h
+$(OBJ)/ball.o: ball.c ball.h graphics.h player.h
 
 # Build environment rules
 $(BUILD):
