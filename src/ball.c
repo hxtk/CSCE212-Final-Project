@@ -11,6 +11,8 @@
 
 #include "player.h"
 
+#define SPEED 1.5
+
 static g_aligned_rect_f ball;
 static g_aligned_rect_f ball_range;
 
@@ -44,6 +46,9 @@ static void ball_reinit() {
     if (rand() & 2) {
       velocity.y = -velocity.y;
     }
+
+    velocity.x *= SPEED;
+    velocity.y *= SPEED;
   } else {
     velocity.x = 1;
     velocity.y = 1;
