@@ -3,20 +3,55 @@
 
 #include "ball.h"
 
+#include <stdlib.h>
+#include <time.h>
+
 #include "graphics.h"
 #include "gba.h"
 
-static g_aligned_rect ball;
-static g_aligned_rect ball_range;
+static g_aligned_rect_f ball;
+static g_aligned_rect_f ball_range;
 
-g_point velocity = {1, 1};
+static g_point_f velocity;
 
-void ball_init(int color, int background) {
+static void ball_reinit() {
+  static first_run = true;
+  static seeded = false;
+
+  // The first call will be from the |init()| function. We do not determine the
+  // seed at first run because time will be predictable at first run.
+  if (!first_run && !seeded) {
+    srand(time(NULL));
+    seeded = true;
+  }
+
+  // Set the velocity to some arbitrary vector with a magnitude of |sqrt(2)|
+  // which has a horizontal component of at least |1|
+  if (seeded) {
+    // 0.5 + a random number on the range (0, 0.5)
+    velocity.x = 0.5 + ((float)(rand()) / 2.0 / (float)(RAND_MAX));
+
+    // sin(x) = 1 - cos²(x)
+    velocity.y = 1.0 - (velocity.x * velocity.x);
+
+    // The above algorithm can only produce velocity vectors in the first
+    // quadrent. This enables the other three 
+    if (rand() & 2) {
+      velocity.x = -velocity.x;
+    }
+    if (rand() & 2) {
+      velocity.y = -velocity.y;
+    }
+  } else {
+    velocity.x = 1;
+    velocity.y = 1;
+  }
+
+  // Place the ball in the middle of the screen
   ball.start.x = GBA_MAX_X / 2;
   ball.start.y = GBA_MAX_Y / 2;
   ball.width = 5;
   ball.height = 5;
-  ball.color = color;
 
   // Range must extend two pixels in all directions
   // because the velocity of the ball has a magnitude of sqrt(2)
@@ -24,11 +59,18 @@ void ball_init(int color, int background) {
   ball_range.start.y = ball.start.y - 2;
   ball_range.width = ball.width + 4;
   ball_range.height = ball.height + 4;
+
+  first_run = false;
+}
+
+void ball_init(int color, int background) {
+  ball.color = color;
   ball_range.color = background;
+  ball_reinit();
 }
 
 void ball_clear() {
-  g_render_rectangle(ball_range);
+  g_render_rectangle_f(ball_range);
 }
 
 void ball_update() {
@@ -43,9 +85,11 @@ void ball_update() {
 
   if (ball.start.y + 2 <= 0 || ball.start.y + 3 >= GBA_MAX_Y)
     velocity.y = -velocity.y;
- 
+
+  if (!(*gba_buttons & GBA_BUTTON_START))
+    ball_reinit();
 }
 
 void ball_render() {
-  g_render_rectangle(ball);
+  g_render_rectangle_f(ball);
 }

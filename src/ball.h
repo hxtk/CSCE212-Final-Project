@@ -7,8 +7,6 @@
 #ifndef BALL_H_
 #define BALL_H_
 
-extern g_point velocity;
-
 // Initialize |ball| and |ball_range| to the center of the screen, with
 // |ball_range| surrounding |ball| evenly on all sides by a margin of the maximum
 // magnitude of |velocity|
