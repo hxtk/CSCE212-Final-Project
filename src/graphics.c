@@ -22,3 +22,25 @@ void g_render_rectangle_f(const g_aligned_rect_f rectangle) {
 
   g_render_rectangle(int_rect);
 }
+
+int g_rect_collide_f(const g_aligned_rect_f* lhs, const g_aligned_rect_f* rhs) {
+  int response = 0;
+
+  // 0b0001 = 0x1 → |lhs| is right of |rhs|'s left edge
+  if (lhs->start.x < rhs->start.x + rhs->width) {
+    response |= 0x1;
+  }
+  // 0b0010 = 0x2 → |lhs| is left of |rhs|'s right edge
+  if (lhs->start.x + lhs->width > rhs->start.x) {
+    response |= 0x2;
+  }
+  // 0b0100 = 0x4 → |lhs| is below |rhs|'s top edge
+  if (lhs->start.y < rhs->start.y + rhs->height) {
+    response |= 0x4;
+  }
+  // 0b1000 = 0x8 → |lhs| is above |rhs|'s bottom edge
+  if (lhs->start.y + lhs->height > rhs->start.y) {
+    response |= 0x8;
+  }
+  return response;
+}

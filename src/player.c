@@ -6,8 +6,8 @@
 #include "graphics.h"
 #include "gba.h"
 
-static g_aligned_rect player_prev;
-static g_aligned_rect player;
+static g_aligned_rect_f player_prev;
+static g_aligned_rect_f player;
 
 void player_init(int color, int background) {
   player.start.x = 15;
@@ -21,7 +21,7 @@ void player_init(int color, int background) {
 }
 
 void player_clear() {
-  g_render_rectangle(player_prev);
+  g_render_rectangle_f(player_prev);
 }
 
 void player_input() {
@@ -35,5 +35,9 @@ void player_input() {
 }
 
 void player_render() {
-  g_render_rectangle(player);
+  g_render_rectangle_f(player);
+}
+
+g_aligned_rect_f* player_struct() {
+  return &player;
 }

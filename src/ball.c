@@ -9,6 +9,8 @@
 #include "graphics.h"
 #include "gba.h"
 
+#include "player.h"
+
 static g_aligned_rect_f ball;
 static g_aligned_rect_f ball_range;
 
@@ -25,7 +27,7 @@ static void ball_reinit() {
     seeded = true;
   }
 
-  // Set the velocity to some arbitrary vector with a magnitude of |sqrt(2)|
+  // Set the velocity to some arbitrary vector with a magnitude of |1|
   // which has a horizontal component of at least |1|
   if (seeded) {
     // 0.5 + a random number on the range (0, 0.5)
@@ -74,20 +76,49 @@ void ball_clear() {
 }
 
 void ball_update() {
+  static int player_mask = 0;
+  
   ball.start.x += velocity.x;
   ball.start.y += velocity.y;
 
   ball_range.start.x += velocity.x;
   ball_range.start.y += velocity.y;
 
-  if (ball.start.x + 2 <= 0 || ball.start.x + 3 >= GBA_MAX_X)
-    velocity.x = -velocity.x;
+  // Get the new collision bitmask between the player and the ball
+  int new_player_mask = g_rect_collide_f(&ball, player_struct());
 
+  // If the ball is in a collision state then determine the axis of the
+  // collision and bounce the ball accordingly.
+  if (new_player_mask == 0xf) {
+    int difference_mask = player_mask ^ new_player_mask;
+    if (difference_mask & G_RECT_COLLISION_X) {
+      velocity.x = -velocity.x;
+    }
+    if (difference_mask & G_RECT_COLLISION_Y) {
+      velocity.y = -velocity.y;
+    }
+  }
+  // Update the old bitmask
+  player_mask = new_player_mask;
+
+  // Reset if it passes left wall
+  if (ball.start.x + ball.width + 2 <= 0) {
+    ball_reinit();
+  }
+
+  // Collide with right wall
+  if (ball.start.x + 3 >= GBA_MAX_X) {
+    velocity.x = -velocity.x;
+  }
+
+  // Collide with the top and bottom walls
   if (ball.start.y + 2 <= 0 || ball.start.y + 3 >= GBA_MAX_Y)
     velocity.y = -velocity.y;
 
-  if (!(*gba_buttons & GBA_BUTTON_START))
+  if (!(*gba_buttons & GBA_BUTTON_START)) {
+    ball_clear();
     ball_reinit();
+  }
 }
 
 void ball_render() {

@@ -11,6 +11,9 @@
 #ifndef GRAPHICS_H_
 #define GRAPHICS_H_
 
+#define G_RECT_COLLISION_X 0x3  // = 0b0011
+#define G_RECT_COLLISION_Y 0xa  // = 0b1100
+
 // This is a point. It is the most basic graphics primitive, and is the basis
 // for |g_line|, |g_polygon|, etc. It consists only of an X and a Y coordinate
 // which should be bounds-checked for the resolution of the video mode, e.g.,
@@ -45,5 +48,14 @@ typedef struct g_aligned_rect_f {
 
 void g_render_rectangle(const g_aligned_rect rectangle);
 void g_render_rectangle_f(const g_aligned_rect_f rectangle);
+
+// This provides the collision matrix between two rectangles. The collision mask
+// is four bits such that:
+//     0b0001 = 0x1 → |lhs| is right of |rhs|'s left edge
+//     0b0010 = 0x2 → |lhs| is left of |rhs|'s right edge
+//     0b0100 = 0x4 → |lhs| is below |rhs|'s top edge
+//     0b1000 = 0x8 → |lhs| is above |rhs|'s bottom edge
+// A collision has occurred if the return value is equal to 0xA
+int g_rect_collide_f(const g_aligned_rect_f* lhs, const g_aligned_rect_f* rhs);
 
 #endif  // GRAPHICS_H_

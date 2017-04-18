@@ -24,4 +24,7 @@ void player_render();
 // No other input events are being handled.
 void player_input();
 
+// Returns a pointer to the player structure
+g_aligned_rect_f* player_struct();
+
 #endif  // PLAYER_H_
