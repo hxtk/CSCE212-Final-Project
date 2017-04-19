@@ -19,8 +19,8 @@ static g_aligned_rect_f ball_range;
 static g_point_f velocity;
 
 static void ball_reinit() {
-  static first_run = true;
-  static seeded = false;
+  static int first_run = true;
+  static int seeded = false;
 
   // The first call will be from the |init()| function. We do not determine the
   // seed at first run because time will be predictable at first run.
