@@ -12,7 +12,7 @@
 #define GRAPHICS_H_
 
 #define G_RECT_COLLISION_X 0x3  // = 0b0011
-#define G_RECT_COLLISION_Y 0xa  // = 0b1100
+#define G_RECT_COLLISION_Y 0xC  // = 0b1100
 
 // This is a point. It is the most basic graphics primitive, and is the basis
 // for |g_line|, |g_polygon|, etc. It consists only of an X and a Y coordinate
