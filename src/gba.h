@@ -91,7 +91,8 @@ void gba_fill_buffer(int color_id);
 // Set the color of the pixel at (x, y) to the given color id
 void gba_set_pixel(int x, int y, int color_id);
 
-// Add the provided color to the next index in the palette
+// Add the provided color to the next index in the palette, returning
+// that index.
 int gba_add_color(uint16_t color);
 
 #endif  // GBA_H_
